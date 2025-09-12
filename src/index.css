@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Main";
+  src: url("/public/fonts/Main.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Square";
+  src: url("/fonts/Square.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Dominos";
+  src: url("/fonts/Dominos.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Semaphore";
+  src: url("/fonts/Semaphore.ttf") format("truetype");
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+html,
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
