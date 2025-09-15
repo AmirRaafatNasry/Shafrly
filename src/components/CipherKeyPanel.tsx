@@ -1,100 +1,96 @@
-import {
-  Accordion,
-  Box,
-  Flex,
-  Grid,
-  GridCol,
-  Text,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
+import { Accordion, Box, Flex, SimpleGrid, Text,  useMantineColorScheme, useMantineTheme } from "@mantine/core";
 import { Minus, Plus } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { Cipher } from "../cipher/cipher";
 import { ARABIC_LETTERS } from "../cipher/constants";
 import { encode } from "../cipher/encode";
-
-interface CipherKeyPanelProps {
+type CipherKeyPanelProps = {
   cipherKey: number;
   cipher: Cipher | null;
-}
+};
 
-export const CipherKeyPanel: React.FC<CipherKeyPanelProps> = ({
-  cipherKey,
-  cipher,
-}) => {
+type CipherCharBoxProps = {
+  char: string;
+  cipher: Cipher | null;
+  cipherKey: number;
+};
+
+const getGridData = (columns: number) => {
+  const rows = Math.ceil(ARABIC_LETTERS.length / columns);
+  return Array.from({ length: columns }, (_, i) =>
+    ARABIC_LETTERS.slice(i * rows, (i + 1) * rows)
+  );
+};
+
+const CipherCharBox = ({ char, cipher, cipherKey }: CipherCharBoxProps) => {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
+  const encoded = cipher ? encode(cipher, char, "/", "-", cipherKey) : "-";
 
-  const totalItems = ARABIC_LETTERS.length;
-  const columns = 4;
-  const rows = Math.ceil(totalItems / columns);
-  const gridData: (string | null)[][] = Array(rows)
-    .fill(null)
-    .map(() => Array(columns).fill(null));
+  return (
+    <Box
+      p="xs"
+      style={{
+        border: `1px solid ${
+          colorScheme === "dark"
+            ? "var(--mantine-color-dark-4)"
+            : "var(--mantine-color-gray-3)"
+        }`,
+        borderRadius: theme.radius.md,
+        marginBottom: 4,
+      }}
+      aria-label={`الحرف ${char} يساوي ${encoded}`}
+    >
+      <Flex justify="center" gap="xs">
+        <Text>{char}</Text>
+        <Text aria-hidden="true">=</Text>
+        <Text style={{ fontFamily: cipher?.features?.customFont?.fontFamily }}>
+          {encoded}
+        </Text>
+      </Flex>
+    </Box>
+  );
+};
 
-  ARABIC_LETTERS.forEach((char, index) => {
-    const col = Math.floor(index / rows);
-    const row = index % rows;
-    if (col < columns) {
-      gridData[row][col] = char;
-    }
-  });
-
+export const CipherKeyPanel = ({ cipherKey, cipher }: CipherKeyPanelProps) => {
+  const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-
+  const isLg = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
+  const isSm = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
+  const columns = isLg ? 4 : isSm ? 2 : 1;
 
   return (
     <Accordion
       disableChevronRotation
       value={opened ? "cipher-key" : null}
-      onChange={(x) => setOpened(true)}
+      onChange={() => setOpened((o) => !o)}
       chevron={opened ? <Minus /> : <Plus />}
     >
-      <Accordion.Item value="cipher-key">
-        <Accordion.Control>
+      <Accordion.Item value="cipher-key" >
+        <Accordion.Control aria-label="معلومات عن الشفرة">
           معلومات عن الشفرة
         </Accordion.Control>
-
-        <Accordion.Panel>
-          <Box pt="sm" px={0}>
-            <Grid gutter="xs">
-              {gridData.map((row, rowIndex) =>
-                row.map((char, colIndex) => (
-                  <GridCol
-                    span={{ base: 12, sm: 6, md: 3 }}
-                    key={`${rowIndex}-${colIndex}`}
-                  >
-                    {char && (
-                      <Box
-                        p="xs"
-                        style={{
-                          border: `1px solid ${colorScheme === "dark" ? "var(--mantine-color-dark-4)" : "var(--mantine-color-gray-3)"}`,
-                          borderRadius: theme.radius.md,
-                        }}
-                      >
-                        <Flex justify="center" gap="xs">
-                          <Text>{char}</Text>
-                          <Text>=</Text>
-                          <Text
-                            style={{
-                              fontFamily:
-                                cipher?.features?.customFont?.fontFamily,
-                            }}
-                          >
-                            {cipher
-                              ? encode(cipher, char, "/", "-", cipherKey)
-                              : "-"}
-                          </Text>
-                        </Flex>
-                      </Box>
-                    )}
-                  </GridCol>
-                ))
-              )}
-            </Grid>
-          </Box>
-        </Accordion.Panel>
+        {opened && (
+          <Accordion.Panel>
+            <Box pt="sm" px={0}>
+              <SimpleGrid cols={columns}>
+                {getGridData(columns).map((col, i) => (
+                  <Box key={i} >
+                    {col.map((char, j) => (
+                      <CipherCharBox
+                        key={`${i}-${j}`}
+                        char={char}
+                        cipher={cipher}
+                        cipherKey={cipherKey}
+                      />
+                    ))}
+                  </Box>
+                ))}
+              </SimpleGrid>
+            </Box>
+          </Accordion.Panel>
+        )}
       </Accordion.Item>
     </Accordion>
   );
