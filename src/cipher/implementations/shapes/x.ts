@@ -4,6 +4,7 @@ export const xCipher: Cipher = {
   id: "x",
   name: "إكس",
   category: CipherCategory.symbol,
+  image: "/images/إكس.svg",
   features: {
     shiftableKey: { factor: 7 },
     reversible: false,

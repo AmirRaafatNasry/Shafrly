@@ -1,6 +1,6 @@
 <div align="center">
 <p>
-  <img src="public/icons/logo.svg" alt="Image" width="120"/>
+  <img src="public/images/logo.svg" alt="Image" width="120"/>
 </p>
 
 <h1>شفرلي - Shafrly</h1>
@@ -21,7 +21,7 @@
 | ✅          | ❌         | ✅     | جوال     | 2   |
 | ✅          | ❌         | ✅     | ساعة     | 3   |
 | ✅          | ❌         | ✅     | رقمية    | 4   |
-| ✅          | ❌         | ✅     | جمع عشري | 5   |
+| ✅          | ❌         | ✅     | عشرية | 5   |
 | ✅          | ❌         | ✅     | روماني   | 6   |
 | ✅          | ❌         | ✅     | بوليبوس  | 7   |
 

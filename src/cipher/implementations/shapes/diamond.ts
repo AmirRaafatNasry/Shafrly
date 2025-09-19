@@ -4,6 +4,7 @@ export const diamondCipher: Cipher = {
   id: "diamond",
   name: "معين",
   category: CipherCategory.symbol,
+  image: "/images/معين.svg",
   features: {
     shiftableKey: { factor: 4 },
     reversible: false,

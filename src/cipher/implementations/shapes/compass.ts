@@ -4,6 +4,7 @@ export const compassCipher: Cipher = {
   id: "compass",
   name: "بوصلة",
   category: CipherCategory.symbol,
+  image: "/images/بوصلة.svg",
   features: {
     reversible: false,
   },

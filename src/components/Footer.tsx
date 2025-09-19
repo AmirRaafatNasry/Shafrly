@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
     <Container size="lg" py="md">
       <Group justify="space-between" align="center" gap="md">
         <Group gap="xs" justify="center">
-          <Image src="/icons/logo.svg" alt="شعار شفرلي" w="35" />
+          <Image src="/images/logo.svg" alt="شعار شفرلي" w="35" />
           <Text>أمير رأفت - مارتينا ميلاد</Text>
         </Group>
 

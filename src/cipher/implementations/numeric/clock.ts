@@ -4,6 +4,7 @@ export const clockCipher: Cipher = {
   id: "clock",
   name: "ساعة",
   category: CipherCategory.number,
+  image: "/images/ساعة.svg",
   features: {
     shiftableKey: { factor: 1 },
     reversible: false,

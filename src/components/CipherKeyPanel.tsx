@@ -67,7 +67,7 @@ export const CipherKeyPanel = ({ cipherKey, cipher }: CipherKeyPanelProps) => {
       onChange={() => setOpened((o) => !o)}
       chevron={opened ? <Minus /> : <Plus />}
     >
-      <Accordion.Item value="cipher-key" >
+      <Accordion.Item value="cipher-key">
         <Accordion.Control aria-label="معلومات عن الشفرة">
           معلومات عن الشفرة
         </Accordion.Control>
@@ -76,7 +76,7 @@ export const CipherKeyPanel = ({ cipherKey, cipher }: CipherKeyPanelProps) => {
             <Box pt="sm" px={0}>
               <SimpleGrid cols={columns}>
                 {getGridData(columns).map((col, i) => (
-                  <Box key={i} >
+                  <Box key={i}>
                     {col.map((char, j) => (
                       <CipherCharBox
                         key={`${i}-${j}`}
@@ -88,6 +88,15 @@ export const CipherKeyPanel = ({ cipherKey, cipher }: CipherKeyPanelProps) => {
                   </Box>
                 ))}
               </SimpleGrid>
+              {cipher?.image && (
+                <Box mt="md" style={{ textAlign: "center" }}>
+                  <img
+                    src={cipher.image}
+                    alt={`تصور لشفرة ${cipher.name}`}
+                    style={{ maxWidth: "50%", maxHeight: "50%" }}
+                  />
+                </Box>
+              )}
             </Box>
           </Accordion.Panel>
         )}

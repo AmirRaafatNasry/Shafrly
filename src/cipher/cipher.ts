@@ -8,6 +8,7 @@ export interface Cipher {
   id: string;
   name: string;
   category: CipherCategory;
+  image?: string;
   features?: Partial<CipherFeatures>;
   symbols: string[];
 }

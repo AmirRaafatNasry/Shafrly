@@ -4,6 +4,7 @@ export const jesusCipher: Cipher = {
   id: "jesus",
   name: "يسوع",
   category: CipherCategory.text,
+  image: "/images/يسوع.svg",
   features: {
     shiftableKey: { factor: 1 },
   },

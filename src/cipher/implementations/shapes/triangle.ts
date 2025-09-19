@@ -4,6 +4,7 @@ export const triangleCipher: Cipher = {
   id: "triangle",
   name: "مثلث",
   category: CipherCategory.symbol,
+  image: "/images/مثلث.svg",
   features: {
     reversible: false,
   },

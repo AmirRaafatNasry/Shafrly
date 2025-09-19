@@ -3,6 +3,7 @@ import { Cipher, CipherCategory } from "../../cipher";
 export const mobileCipher: Cipher = {
   id: "mobile",
   name: "جوال",
+  image: "/images/جوال.svg",
   category: CipherCategory.number,
   // prettier-ignore
   symbols: [
